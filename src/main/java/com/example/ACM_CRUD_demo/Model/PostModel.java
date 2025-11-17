@@ -13,6 +13,12 @@ public class PostModel {
     public PostModel(){
 
     }
+    public PostModel(String name, String className, String dueDate){
+        setName(name);
+        setClassName(className);
+        setDueDate(dueDate);
+        setStatus("Not Started");
+    }
 
     public String get_id() {
         return _id;
