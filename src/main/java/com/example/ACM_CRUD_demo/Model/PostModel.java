@@ -8,6 +8,7 @@ public class PostModel {
     private String Name;
     private String Class;
     private String DueDate;
+    private String Status;
 
     public PostModel(){
 
@@ -45,11 +46,20 @@ public class PostModel {
         Name = name;
     }
 
+    public String getStatus(){
+        return Status;
+    }
+
+    public void setStatus(String status) {
+        Status = status;
+    }
+
     @Override
     public String toString() {
         String toreturn =  "Name: " + Name + "\n";
         toreturn += "Class: " + Class + "\n";
         toreturn += "Due Date: " + DueDate + "\n";
+        toreturn += "Status: " + Status + "\n";
         return toreturn;
     }
 }
