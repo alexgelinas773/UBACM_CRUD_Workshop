@@ -2,13 +2,21 @@
 import { useState, useEffect } from 'react';
 import acmlogo from './ubacmlogo.png';
 
+/**
+ * TodoApp is the main React component, creating the UI of the wep abb. All local variables relating to display
+ * and user interaction are stored within it.
+ * @returns {JSX.Element} - the UI element presented at localhost:3000
+ */
 export default function TodoApp() {
+
+  //state variables to communicate from frontend -> backend -> database
   const [tasks, setTasks] = useState([]);
   const [name, setName] = useState('');
   const [className, setClassName] = useState('');
   const [dueDate, setDueDate] = useState('');
   const [editingId, setEditingId] = useState(null);
 
+  //fetch all existing tasks upon loading the app
   useEffect(() => {
     fetch('http://localhost:8080/allTasks')
         .then(r => r.json())
@@ -16,6 +24,10 @@ export default function TodoApp() {
         .catch(e => console.error(e));
   }, []);
 
+
+  /**
+   * Operation to add a task to the ToDo List
+   */
   const add = () => {
     if (name.trim()) {
       const task = {
@@ -41,6 +53,10 @@ export default function TodoApp() {
     }
   };
 
+  /**
+   * Called when frontend "Delete" button is pressed. Removes task from the UI.
+   * @param id - identifies the task being deleted
+   */
   const deleteTask = (id) => {
     fetch(`http://localhost:8080/deleteTask/${id}`, {
       method: 'DELETE'
@@ -51,11 +67,19 @@ export default function TodoApp() {
         .catch(e => console.error(e));
   };
 
+  /**
+   * When user begins to edit a task, startEdit stores the task id in EditingId.
+   * @param task
+   */
   const startEdit = (task) => {
     console.log('Starting edit for task:', task._id);
     setEditingId(task._id);
   };
 
+  /**
+   * Updates the UI component of the tasks. Does not check for presence or absence of changes.
+   * @param task - sent in the response body and contains all fields of the updated task.
+   */
   const saveEdit = (task) => {
     fetch(`http://localhost:8080/updateTask/${task._id}`, {
       method: 'PUT',
@@ -70,10 +94,19 @@ export default function TodoApp() {
         .catch(e => console.error(e));
   };
 
+  /**
+   * Discards changes made to a task before "Save" is clicked by user. Clears the edited task's id.
+   */
   const cancelEdit = () => {
     setEditingId(null);
   };
 
+  /**
+   * Updates individual fields of the task UI component.
+   * @param id - id of task being edited
+   * @param field - field to be changed
+   * @param value - value for the field to be updated to
+   */
   const updateField = (id, field, value) => {
     setTasks(tasks.map(t => t._id === id ? { ...t, [field]: value } : t));
   };
