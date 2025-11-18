@@ -16,10 +16,10 @@ export default function TodoApp() {
   const add = () => {
     if (name.trim()) {
       const task = {
-        Name: name,
-        Class: className,
-        DueDate: dueDate,
-        Status: 'Incomplete'
+        name: name,
+        className: className,
+        dueDate: dueDate,
+        status: 'Not Started'
       };
 
       fetch('http://localhost:8080/addTask', {
@@ -64,20 +64,27 @@ export default function TodoApp() {
                 onChange={(e) => setDueDate(e.target.value)}
                 className="border rounded px-3 py-2"
             />
-            <button onClick={add} className="bg-blue-500 text-white px-4 py-2 rounded">
+            <button onClick={add} className="bg-green-500 text-white px-4 py-2 rounded">
               Add Task
             </button>
           </div>
 
-          <div className="space-y-2">
-            {tasks.map(t => (
-                <div key={t._id} className="p-3 border rounded">
-                  <div className="font-bold">{t.Name}</div>
-                  <div className="text-sm text-gray-600">Class: {t.Class}</div>
-                  <div className="text-sm text-gray-600">Due: {t.DueDate}</div>
-                  <div className="text-sm">Status: {t.Status}</div>
-                </div>
-            ))}
+          <div className="space-y-3">
+            {tasks.length === 0 ? (
+                <div className="text-gray-500 text-center py-4">No tasks yet. Add one above!</div>
+            ) : (
+                tasks.map(t => (
+                    <div key={t._id} className="p-4 border-2 rounded-lg shadow-sm bg-white relative">
+                      <button className="absolute top-2 right-2 text-blue-500 text-sm hover:text-blue-700">
+                        Edit
+                      </button>
+                      <div className="font-bold text-lg mb-2">{t.name || 'No name'}</div>
+                      <div className="text-sm text-gray-600 mb-1">Class: {t.className || 'N/A'}</div>
+                      <div className="text-sm text-gray-600 mb-1">Due: {t.dueDate || 'No date'}</div>
+                      <div className="text-sm font-medium">Status: {t.status || 'Unknown'}</div>
+                    </div>
+                ))
+            )}
           </div>
         </div>
       </div>
