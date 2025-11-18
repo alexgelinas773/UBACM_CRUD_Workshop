@@ -1,5 +1,6 @@
-//frontend made using Claude AI React Generator- Sonnet 4.5
+//frontend made using Claude AI React Generator - Sonnet 4.5
 import { useState, useEffect } from 'react';
+import acmlogo from './ubacmlogo.png';
 
 export default function TodoApp() {
   const [tasks, setTasks] = useState([]);
@@ -80,7 +81,11 @@ export default function TodoApp() {
   return (
       <div className="min-h-screen bg-gray-50 p-8">
         <div className="max-w-2xl mx-auto bg-white rounded-lg shadow p-6">
-          <h1 className="text-2xl font-bold mb-4">School Assignments</h1>
+          <div className="flex items-center gap-x-80 mb-4">
+            <h1 className="text-2xl font-bold mb-4" align="left">Assignment Tracker</h1>
+            <img src={acmlogo} alt="ACM Logo" className="h-10" align="right"/>
+          </div>
+
 
           <div className="grid gap-2 mb-4">
             <input
@@ -103,7 +108,7 @@ export default function TodoApp() {
                 onChange={(e) => setDueDate(e.target.value)}
                 className="border rounded px-3 py-2"
             />
-            <button onClick={add} className="bg-green-500 text-white px-4 py-2 rounded">
+            <button onClick={add} className="bg-blue-500 text-white px-4 py-2 rounded">
               Add Task
             </button>
           </div>
