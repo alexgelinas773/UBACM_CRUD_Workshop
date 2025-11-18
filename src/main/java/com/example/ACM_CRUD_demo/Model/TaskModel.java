@@ -3,17 +3,17 @@ package com.example.ACM_CRUD_demo.Model;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "Tasks")
-public class PostModel {
+public class TaskModel {
     private String _id;
     private String Name;
     private String Class;
     private String DueDate;
     private String Status;
 
-    public PostModel(){
+    public TaskModel(){
 
     }
-    public PostModel(String name, String className, String dueDate){
+    public TaskModel(String name, String className, String dueDate){
         setName(name);
         setClassName(className);
         setDueDate(dueDate);

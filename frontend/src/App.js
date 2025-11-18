@@ -38,6 +38,16 @@ export default function TodoApp() {
     }
   };
 
+  const deleteTask = (id) => {
+    fetch(`http://localhost:8080/deleteTask/${id}`, {
+      method: 'DELETE'
+    })
+        .then(() => {
+          setTasks(tasks.filter(t => t._id !== id));
+        })
+        .catch(e => console.error(e));
+  };
+
   return (
       <div className="min-h-screen bg-gray-50 p-8">
         <div className="max-w-2xl mx-auto bg-white rounded-lg shadow p-6">
@@ -81,7 +91,13 @@ export default function TodoApp() {
                       <div className="font-bold text-lg mb-2">{t.name || 'No name'}</div>
                       <div className="text-sm text-gray-600 mb-1">Class: {t.className || 'N/A'}</div>
                       <div className="text-sm text-gray-600 mb-1">Due: {t.dueDate || 'No date'}</div>
-                      <div className="text-sm font-medium">Status: {t.status || 'Unknown'}</div>
+                      <div className="text-sm font-medium mb-2">Status: {t.status || 'Unknown'}</div>
+                      <button
+                          onClick={() => deleteTask(t._id)}
+                          className="absolute bottom-2 right-2 text-red-500 text-sm hover:text-red-700"
+                      >
+                        Delete
+                      </button>
                     </div>
                 ))
             )}
