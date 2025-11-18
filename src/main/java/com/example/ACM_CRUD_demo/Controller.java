@@ -2,6 +2,7 @@ package com.example.ACM_CRUD_demo;
 
 import com.example.ACM_CRUD_demo.Model.TaskModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.config.Task;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,8 +30,13 @@ public class Controller {
         repo.deleteById(id);
     }
 
-
-
-
-
+    @PutMapping("/updateTask/{id}")
+    public TaskModel updateTask(@PathVariable String id, @RequestBody TaskModel updatedTask){
+        TaskModel toUpdate = repo.findById(id).orElse(null);
+        if (toUpdate != null){
+            toUpdate.matchTo(updatedTask);
+            return repo.save(toUpdate);
+        }
+        return null;
+    }
 }

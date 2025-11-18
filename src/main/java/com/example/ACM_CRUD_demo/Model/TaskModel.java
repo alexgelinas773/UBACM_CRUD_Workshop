@@ -68,4 +68,11 @@ public class TaskModel {
         toreturn += "Status: " + Status + "\n";
         return toreturn;
     }
+
+    public void matchTo(TaskModel other){
+        this.setClassName(other.getClassName());
+        this.setName(other.getName());
+        this.setStatus(other.getStatus());
+        this.setDueDate(other.getDueDate());
+    }
 }
