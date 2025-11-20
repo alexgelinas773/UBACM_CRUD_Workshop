@@ -71,5 +71,9 @@ public class TaskModel {
 
     public void matchTo(TaskModel other){
         // create a method to update a TaskModel to match the state variables of another. Do not alter the id.
+        this.setDueDate(other.getDueDate());
+        this.setName(other.getName());
+        this.setStatus(other.getStatus());
+        this.setClassName(other.getClassName());
     }
 }
